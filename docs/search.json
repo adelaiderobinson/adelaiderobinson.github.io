@@ -2,22 +2,15 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "adelaiderobinson.github.io",
+    "title": "Adelaide Robinson",
     "section": "",
-    "text": "Hi I’m Adelaide!"
+    "text": "Hi I’m Adelaide! I’m currently a graduate student in the Master of Environmental Data Science (MEDS) Program at UC Santa Barbara within the Bren School of Environmental Science & Management."
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "1 + 1\n\n[1] 2"
-  },
-  {
-    "objectID": "hello.html",
-    "href": "hello.html",
-    "title": "More interesting stuff",
-    "section": "",
-    "text": "test"
+    "objectID": "index.html#background",
+    "href": "index.html#background",
+    "title": "Adelaide Robinson",
+    "section": "Background",
+    "text": "Background\nI’ve worked in conservation since I completed my bachelor’s degree in Animal Biology from UC Davis in 2015. I have primarily focused on monitoring salmon populations, although I have experience with everything from bird surveys to restoration. As a fisheries technician at Point Reyes National Seashore, I led a Dual Frequency Identification (DIDSON) sonar camera project designed to monitor adult salmon. My duties included managing all data concerning nearly 3,000 hours of sonar footage. This project, along with my experience collecting data in the field, piqued my interest in delving deeper into data management and analysis."
   }
 ]

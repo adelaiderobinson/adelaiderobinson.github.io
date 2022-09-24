@@ -1,5 +1,20 @@
 ---
-title: "adelaiderobinson.github.io"
+title: "Adelaide Robinson"
+about:
+  template: trestles
+  image: images/adelaide.jpg
+  image-width: 16em
+  links:
+    - icon: github
+      text: GitHub
+      href: https://github.com/adelaiderobinson
+    - icon: envelope
+      text: Email
+      href: mailto:adelaide.robinson445@gmail.com
 ---
 
-Hi I'm Adelaide!
+Hi I'm Adelaide! I'm currently a graduate student in the Master of Environmental Data Science (MEDS) Program at UC Santa Barbara within the Bren School of Environmental Science & Management.
+
+## Background
+
+I've worked in conservation since I completed my bachelor's degree in Animal Biology from UC Davis in 2015. I have primarily focused on monitoring salmon populations, although I have experience with everything from bird surveys to restoration. As a fisheries technician at Point Reyes National Seashore, I led a Dual Frequency Identification (DIDSON) sonar camera project designed to monitor adult salmon. My duties included managing all data concerning nearly 3,000 hours of sonar footage. This project, along with my experience collecting data in the field, piqued my interest in delving deeper into data management and analysis.

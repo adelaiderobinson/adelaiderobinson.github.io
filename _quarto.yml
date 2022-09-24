@@ -3,17 +3,16 @@ project:
   output-dir: docs
 
 website:
-  title: "adelaiderobinson.github.io"
+  title: "Adelaide Robinson"
   navbar:
     left:
       - href: index.qmd
         text: Home
-      - about.qmd
       - hello.qmd
 
 format:
   html:
-    theme: cosmo
+    theme: journal
     css: styles.css
     toc: true
 
