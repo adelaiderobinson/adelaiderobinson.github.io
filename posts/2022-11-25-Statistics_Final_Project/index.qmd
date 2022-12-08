@@ -1,0 +1,235 @@
+---
+title: "Exploring the Relationship Between Salmon Populations and Protected Areas"
+description: "EDS 222 Final Project"
+execute:
+  echo: false
+  message: false
+  warning: false
+author: 
+  name: Adelaide Robinson
+  url: https://adelaide.robinson.github.io
+  affiliation: MEDS
+  affiliation-url: https://ucsb-meds.github.io
+date: 2022-11-25
+categories: [MEDS]
+draft: 
+format: 
+  html:
+    code-fold: true
+image: steelhead.jpg
+---
+
+```{r message=FALSE, results = FALSE}
+library(here)
+library(tidyverse)
+library(sf)
+library(tmap)
+library(broom)
+library(kableExtra)
+library(knitr)
+```
+
+# Background
+
+# Data
+
+# Data Wrangling
+
+## Geospatial
+
+In order to calculate percent protected by watershed, I used spatial intersection to find the overlap between the protected areas in the CPAD database and each monitored watershed. I then divided the total area of overlap by the total watershed area and multiplied by 100 to find the % protected. I removed any protected areas established after 2009, as this was the first year of data I included in my analysis.
+
+```{r message=FALSE, results = FALSE}
+setwd("/Users/adelheid/Documents/MEDS/EDS_222/eds222_final_project") #setting working directory to where the data is stored
+
+salmon_populations <- read_csv("data/Salmonid_Population_Monitoring_Data_CMPv2021.csv")
+#read in salmon population data 
+
+watershed <- st_read("data/ds3001/ds3001.gdb")
+#read in watershed data
+
+protected_areas <- st_read("data/CPAD_2022a/CPAD_2022a_Holdings.dbf")
+#read in protected areas data 
+
+spawning_data <- salmon_populations |> filter(`Life Stage` %in% "Adult") |> #all adult salmon
+  select("Population", "Watershed", "Species", Brood_year = "Brood Year", "GEO_ID_POLY", "Value", "Metric", "Estimation method") |> #selecting relevant columns
+  filter(!is.na(GEO_ID_POLY)) #taking out data with no matching spatial id
+
+watershed_id <- unique(spawning_data$GEO_ID_POLY) #making a list of all the watersheds that have adult population data 
+
+watershed_new <- watershed |> filter(GEO_ID_POL %in% watershed_id) |> st_make_valid() #filter to watersheds that have spawning data available
+
+protected <- protected_areas |> select(UNIT_NAME, YR_EST)
+#selecting relevant columns
+
+protected2 <- protected |> filter(YR_EST < 2009| YR_EST %in% c(NA)) #remove any protected areas established after the first year of data I am using
+
+#Filter to protected areas within watersheds of interest and find the area of intersection for each 
+intersect_polygons <- st_intersection(watershed_new, protected2) |> 
+   dplyr::select(Name, GEO_ID_POL) #select relevant columns
+ 
+#find total area protected for each watershed 
+total_overlap <- intersect_polygons |> group_by(Name) |> #group by watershed
+  summarize(geometry = st_union(Shape))|> #combine geometries within watershed
+  mutate(total_protected = st_area(geometry)) #find total protected 
+
+# dropping geometry 
+total_overlap_geomless <- total_overlap |> st_drop_geometry()
+
+watershed_area <- watershed_new |> mutate(total_area = st_area(Shape)) #find the total area of each watershed 
+
+watershed_protected <- left_join(watershed_area, total_overlap_geomless, by = "Name") #add area protected column by joining
+
+#calculate percent protected 
+watershed_final <- watershed_protected |> 
+mutate(percent_protected = 
+         as.numeric((total_protected)/ as.numeric(total_area)) *100) |> 
+  mutate(percent_protected = round(percent_protected, digits = 0)) |> #round 
+  mutate(percent_protected  = replace_na(percent_protected, 0)) #change NA to 0
+
+#drop geometry and make it a data frame
+watershed_geomless <- st_drop_geometry(watershed_final) |> as.data.frame() |> 
+  select(- Method_Typ)
+
+#combine spawning observations with percent protected
+all_data <- left_join(spawning_data, watershed_geomless, by = c("GEO_ID_POLY" = "GEO_ID_POL")) |> select("Population", "Species", "Value", "percent_protected", "Name", "Brood_year", "Metric", "Estimation method", "GEO_ID_POLY")
+```
+
+```{r message=FALSE, `results = FALSE`}
+tmap_mode("view")
+
+tmap_options(check.and.fix = TRUE)
+
+watershed <- tm_shape(total_overlap) + tm_fill(col = "#004600") + #map protected portions
+  tm_shape(watershed_new) + tm_borders(col = "blue") + tm_add_legend(labels = c( "Watershed Boundary", "Protected area"), col = c("blue", "#004600")) #map watershed boundaries
+protected <- tm_shape(watershed_final) + tm_polygons(col = "percent_protected", popup.vars = "Name")
+
+```
+
+```{r message=FALSE}
+tmap_arrange(watershed, protected)
+```
+
+## General
+
+After finding percent protected for each watershed I added this back to the population count data. I selected only for adult population counts, as these were the most consistent metric of salmon population data collected. Some years adult population counts were estimated using different methods for the same population, I took the average when this occurred. Although the data set included data starting in 1981, data was collected inconsistently across populations, with more monitoring occurring as time increased. In order to prevent this from impacting my analysis, I chose to only analyze data within a set time frame which had consistent data collection and only include populations which had data that spanned this time frame. For steelhead the time frame I used was 2009-2018, and for coho I used 2010-2017. I also removed populations which never had any fish observed during the time period of my analysis. For ease of interpretation I set 2009 as year 0 for steelhead and 2010 as year 0 for coho.
+
+```{r}
+steelhead <- all_data |> filter(Species == "Steelhead") #filter for steelhead
+
+steelhead_consistent <- steelhead |> group_by(Population) |> summarize(percent_protected = max(percent_protected)) #making value of percent protected consistent across the population
+
+steelhead_summary <- steelhead |>  group_by(Population, Brood_year) |> summarize(Value = round(mean(Value),0)) #taking average where population count calculated in more than one way
+
+steelhead_combined <- left_join(steelhead_summary, steelhead_consistent, by = "Population")
+
+#filter for populations that had at least one fish over analysis time period  
+has_fish <- steelhead_combined|> group_by(Population) |> summarize(max = max(Value)) |> filter(max > 0)  
+
+has_fish <- has_fish$Population
+
+steelhead <- steelhead_combined |>  filter(Population %in% has_fish)
+```
+
+```{r}
+
+#find what years I have data over
+data_years <- steelhead |> group_by(Population) |> summarize(min_year = min(Brood_year), max_year = max(Brood_year), total_year = length(Brood_year)) 
+
+#making list of sites where I have consistent data between 2009 and 2018
+use_list <- data_years |> filter(min_year <= 2009) |> filter(max_year >= 2018)
+
+#selecting populations in my list
+list <- use_list$Population
+
+#filtering for data btween 2009 and 2018
+steelhead_data <- steelhead |> filter(Population %in% list) |> filter(Brood_year >= 2009) |> filter(Brood_year <= 2018)
+
+#making initial year 0 for ease of interpretation
+steelhead_final <- steelhead_data |> mutate(year = as.numeric(Brood_year) - 2009) |> mutate(populationcount = Value)
+```
+
+```{r}
+# coho data wrangling
+
+coho <- all_data |> filter(Species == "Coho salmon")
+
+coho_consistent <- steelhead |> group_by(Population) |> summarize(percent_protected = max(percent_protected)) #making value of percent protected consistent across the population
+
+coho_summary <- coho |>  group_by(Population, Brood_year) |> summarize(Value = round(mean(Value),0)) #taking average where population count calculated in more than one way
+
+coho_combined <- left_join(coho_summary, coho_consistent, by = "Population")
+
+data_years <- coho_combined |> group_by(Population) |> summarize(min_year = min(Brood_year), max_year = max(Brood_year), total_year = length(Brood_year)) #find what years I have data over
+
+use_list <- data_years |> filter(min_year <= 2010) |> filter(max_year >= 2017)
+
+list <- use_list$Population
+
+coho_usable <- coho_combined |> filter(Population %in% list) |> filter(Brood_year >= 2010) |> filter(Brood_year <= 2017)
+#remove any populations which are zero over this whole time period
+
+coho12 <- coho_usable |> group_by(Population) |> summarize(max = max(Value)) |> filter(max == 0)
+
+remove <- coho12$Population
+
+coho_usable2 <- coho_usable |> filter(!Population %in% remove)
+
+remove_list <- coho_usable2 |> group_by(Population) |> summarize(min_year = min(Brood_year), max_year = max(Brood_year), total_year = length(Brood_year)) |> filter(max_year != 2017 | min_year != 2010)
+
+remove <- remove_list$Population
+
+coho_final <- coho_usable |> filter(!Population %in% remove)
+
+coho_final <- coho_final |>  mutate(year = as.numeric(Brood_year) - 2010) |> mutate(population_count = Value)
+
+
+```
+
+# Analysis
+
+$populationcount = B_0 + B_1year_t + + B_2percentprotected + B_3Year_t * percentProtected +E_i$
+
+```{r echo=TRUE, eval = FALSE}
+#stelhead regression
+lm(populationcount~percent_protected + year + year:percent_protected, data = steelhead_all)
+#coho regression
+lm(populationcount~year + percent_protected + year:percent_protected, data = coho_final)
+```
+
+# Results
+
+## Steelhead
+
+```{r}
+model <- lm(Value~percent_protected + year + year:percent_protected, data = steelhead_final)
+
+output <- tidy(model, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
+```
+
+```{r results = TRUE}
+output %>% kable() %>% kableExtra::kable_styling()
+```
+
+Increase in percent protected has a positive effect on the number of steelhead. When year is 0 (2009) there will be on average 4 more steelhead for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.99 is the difference in the effect of year on steelhead population count for every one increase in protected area. Time has a positive effect on the number of steelhead. When percent protected is zero on average there will be an increase of 52 fish per year.
+
+Using a significance level of 0.05, $B_1$ , $B_2$, and $B_3$ are not statistically significant (table 1) . My 95% confidence intervals include zero (table 1). I fail to reject the null hypothesis.
+
+## Coho
+
+Increase in percent protected has a negative effect on the number of coho When year is 0 (2010) there will be on average 2 less coho for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.46 is the expected difference in the effect of year on coho population count for every one increase in protected area. Time has a positive effect on the number of coho. When percent protected is zero on average there will be an increase of 41 fish per year.
+
+Using a significance level of 0.05, $B_1$ , $B_2$, and $B_3$ are not statistically significant (table 2) . My 95% confidence include 0. I fail to reject the null hypothesis.
+
+```{r}
+model <- lm(Value~year + percent_protected + year:percent_protected, data = coho_final)
+output <- tidy(model, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
+```
+
+```{r}
+output %>% kable() %>% kableExtra::kable_styling()
+```
+
+# Discussion and Limitations
+
+# Citations

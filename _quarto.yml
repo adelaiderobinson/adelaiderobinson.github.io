@@ -9,11 +9,13 @@ website:
       - href: index.qmd
         text: Home
       - hello.qmd
-
+      - href: posts.qmd
+        text: Blog Posts
 format:
   html:
-    theme: journal
-    css: styles.css
+    theme:
+      - mystyles.scss
+    mainfont: nunitosans 
     toc: true
 
 editor: visual

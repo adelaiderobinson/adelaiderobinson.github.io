@@ -1,5 +1,33 @@
 [
   {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.html#geospatial",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.html#geospatial",
+    "title": "Exploring the Relationship Between Salmon Populations and Protected Areas",
+    "section": "Geospatial",
+    "text": "Geospatial\nIn order to calculate percent protected by watershed, I used spatial intersection to find the overlap between the protected areas in the CPAD database and each monitored watershed. I then divided the total area of overlap by the total watershed area and multiplied by 100 to find the % protected. I removed any protected areas established after 2009, as this was the first year of data I included in my analysis."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.html#general",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.html#general",
+    "title": "Exploring the Relationship Between Salmon Populations and Protected Areas",
+    "section": "General",
+    "text": "General\nAfter finding percent protected for each watershed I added this back to the population count data. I selected only for adult population counts, as these were the most consistent metric of salmon population data collected. Some years adult population counts were estimated using different methods for the same population, I took the average when this occurred. Although the data set included data starting in 1981, data was collected inconsistently across populations, with more monitoring occurring as time increased. In order to prevent this from impacting my analysis, I chose to only analyze data within a set time frame which had consistent data collection and only include populations which had data that spanned this time frame. For steelhead the time frame I used was 2009-2018, and for coho I used 2010-2017. I also removed populations which never had any fish observed during the time period of my analysis. For ease of interpretation I set 2009 as year 0 for steelhead and 2010 as year 0 for coho."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.html#steelhead",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.html#steelhead",
+    "title": "Exploring the Relationship Between Salmon Populations and Protected Areas",
+    "section": "Steelhead",
+    "text": "Steelhead\n\n\n\n\n\n\n\n \n  \n    term \n    estimate \n    std.error \n    statistic \n    p.value \n    conf.low \n    conf.high \n  \n \n\n  \n    (Intercept) \n    218.12 \n    176.00 \n    1.24 \n    0.216 \n    -128.06 \n    564.31 \n  \n  \n    percent_protected \n    4.23 \n    3.35 \n    1.26 \n    0.207 \n    -2.35 \n    10.82 \n  \n  \n    year \n    52.32 \n    33.21 \n    1.58 \n    0.116 \n    -13.01 \n    117.65 \n  \n  \n    percent_protected:year \n    -0.99 \n    0.62 \n    -1.59 \n    0.113 \n    -2.21 \n    0.24 \n  \n\n\n\n\n\nIncrease in percent protected has a positive effect on the number of steelhead. When year is 0 (2009) there will be on average 4 more steelhead for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.99 is the difference in the effect of year on steelhead population count for every one increase in protected area. Time has a positive effect on the number of steelhead. When percent protected is zero on average there will be an increase of 52 fish per year.\nUsing a significance level of 0.05, \\(B_1\\) , \\(B_2\\), and \\(B_3\\) are not statistically significant (table 1) . My 95% confidence intervals include zero (table 1). I fail to reject the null hypothesis."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.html#coho",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.html#coho",
+    "title": "Exploring the Relationship Between Salmon Populations and Protected Areas",
+    "section": "Coho",
+    "text": "Coho\nIncrease in percent protected has a negative effect on the number of coho When year is 0 (2010) there will be on average 2 less coho for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.46 is the expected difference in the effect of year on coho population count for every one increase in protected area. Time has a positive effect on the number of coho. When percent protected is zero on average there will be an increase of 41 fish per year.\nUsing a significance level of 0.05, \\(B_1\\) , \\(B_2\\), and \\(B_3\\) are not statistically significant (table 2) . My 95% confidence include 0. I fail to reject the null hypothesis.\n\n\n\n\n\n\n\n \n  \n    term \n    estimate \n    std.error \n    statistic \n    p.value \n    conf.low \n    conf.high \n  \n \n\n  \n    (Intercept) \n    452.79 \n    164.32 \n    2.76 \n    0.006 \n    128.91 \n    776.67 \n  \n  \n    year \n    41.64 \n    39.60 \n    1.05 \n    0.294 \n    -36.41 \n    119.69 \n  \n  \n    percent_protected \n    -1.72 \n    3.08 \n    -0.56 \n    0.576 \n    -7.80 \n    4.35 \n  \n  \n    year:percent_protected \n    -0.46 \n    0.74 \n    -0.62 \n    0.534 \n    -1.92 \n    1.00"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Adelaide Robinson",
@@ -12,5 +40,19 @@
     "title": "Adelaide Robinson",
     "section": "Background",
     "text": "Background\nI’ve worked in conservation since I completed my bachelor’s degree in Animal Biology from UC Davis in 2015. I have primarily focused on monitoring salmon populations, although I have experience with everything from bird surveys to restoration. As a fisheries technician at Point Reyes National Seashore, I led a Dual Frequency Identification (DIDSON) sonar camera project designed to monitor adult salmon. My duties included managing all data concerning nearly 3,000 hours of sonar footage. This project, along with my experience collecting data in the field, piqued my interest in delving deeper into data management and analysis."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Data Science Blog",
+    "section": "",
+    "text": "MEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nNov 25, 2022\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "hello.html",
+    "href": "hello.html",
+    "title": "CV",
+    "section": "",
+    "text": "this is my h1 element\nthis is my paragraph\nthis is my red paragraph"
   }
 ]

@@ -1,0 +1,14 @@
+{
+  "hash": "59e04ba384ec8d297b3a2cedeea93466",
+  "result": {
+    "markdown": "---\ntitle: \"Exploring the Relationship Between Salmon Populations and Protected Areas\"\ndescription: \"EDS 222 Final Project\"\nauthor: \n  name: Adelaide Robinson\n  url: https://adelaide.robinson.github.io\n  affiliation: MEDS\n  affiliation-url: https://ucsb-meds.github.io\ndate: 2022-11-25\ncategories: [MEDS]\ndraft: \nformat: \n  html:\n    code-fold: true\n---\n\n::: {.cell}\n\n```{.r .cell-code}\nlibrary(here)\nlibrary(tidyverse)\nlibrary(sf)\nlibrary(tmap)\n```\n:::\n",
+    "supporting": [],
+    "filters": [
+      "rmarkdown/pagebreak.lua"
+    ],
+    "includes": {},
+    "engineDependencies": {},
+    "preserve": {},
+    "postProcess": true
+  }
+}

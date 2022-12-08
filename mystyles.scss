@@ -1,0 +1,29 @@
+/*-- scss:defaults --*/
+//font
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans&display=swap');
+
+// Colors
+
+$pink: #bf4061;
+$teal: #5FD0A2;
+$grey: #CFD8DC;
+$black: #000000;
+
+//font size
+
+//Base Document Colors 
+$body-bg: $grey;
+$body-color: $black;
+$navbar-bg: $pink; 
+
+/*-- scss:rules --*/
+h1,h2,h3 {
+  letter-spacing: 4px;
+  font-weight: 400;
+  color: $black;
+  
+}
+
+.title {
+  color: $black;
+}
