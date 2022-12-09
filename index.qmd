@@ -2,7 +2,7 @@
 title: "Adelaide Robinson"
 about:
   template: trestles
-  image: images/adelaide.jpg
+  image: images/adelaide1.jpeg
   image-width: 16em
   links:
     - icon: github
