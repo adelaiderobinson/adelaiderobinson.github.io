@@ -1,5 +1,5 @@
 ---
-title: "Exploring the Relationship Between Salmon Populations and Protected Areas"
+title: "Exploring the Relationship Between Salmonid Populations and Protected Areas"
 description: "EDS 222 Final Project"
 execute:
   echo: false
@@ -10,12 +10,14 @@ author:
   url: https://adelaide.robinson.github.io
   affiliation: MEDS
   affiliation-url: https://ucsb-meds.github.io
-date: 2022-11-25
+date: 2022-12-09
 categories: [MEDS]
 draft: 
 format: 
   html:
     code-fold: true
+    fig-width: 4
+    fig-height: 3
 image: steelhead.jpg
 ---
 
@@ -32,17 +34,17 @@ library(lfe)
 
 # Background
 
-Populations of anadromous Pacific salmon within California are declining and many populations are expected to disappear entirely within the next 100 years (Katz et al., 2013). For this project I focus on two of these species, coho salmon and steelhead. Of the two evolutionary significant units of coho in California, one is federally listed as threatened and the other is endangered (Moyle et al., 2017). For steelhead there are seven distinct population segments within the state, five of which are federally listed as threatened and one of which is endangered (Moyle et al., 2017). Numerous factors have contributed to their decline and are ongoing threats, including drought and other climate factors, hatchery interactions, and over-fishing (Brown et al., 1994). In some areas, habitat loss is thought to be the predominant mechanism of historical decline, driven by dams, agriculture, and logging (Brown et al., 1994). Urban land use has been linked to the decline of salmon over time and has been shown to impact juvenile survival in the Pacific Northwest (Bilby & Mollot, 2008; Paulsen & Fisher, 2001). In California, many salmon populations spawn within areas that are now considered protected, including lands which have previously been ecologically damaged. For example, Redwood Creek watershed, which now partially resides within Redwood National Park, was previously extensively logged (Brown et al., 1994). I am interested in understanding how protected areas impact salmon populations in California, both in terms of population numbers and rate of change over time. I was unable to find research within California that documented the impact of established protected areas on salmon populations. Understanding this relationship can help managers improve land use practices to protect these species.
+Populations of anadromous Pacific salmon within California are declining and many populations are expected to disappear entirely within the next 100 years (Katz et al., 2013). For this project I focus on two of these species, coho salmon and steelhead. Of the two evolutionary significant units of coho in California, one is federally listed as threatened and the other is endangered (Moyle et al., 2017). For steelhead there are seven distinct population segments within the state, five of which are federally listed as threatened and one of which is endangered (Moyle et al., 2017). Numerous factors have contributed to their decline and contribute ongoing threats, including drought and other climate factors, hatchery interactions, and over-fishing (Brown et al., 1994). In some areas, habitat loss is thought to be the predominant mechanism of historical decline, driven by dams, agriculture, and logging (Brown et al., 1994). Urban land use has been linked to the decline of salmon over time and has been shown to impact juvenile survival in the Pacific Northwest (Bilby & Mollot, 2008; Paulsen & Fisher, 2001). In California, many salmon populations spawn within areas that are now considered protected, including lands which have previously been ecologically damaged. For example, Redwood Creek watershed, which now partially resides within Redwood National Park, was previously extensively logged (Brown et al., 1994). I am interested in understanding how protected areas impact salmon populations in California, both in terms of population numbers and rate of change over time. I was unable to find research within California that documented the impact of established protected areas on salmon populations. Understanding this relationship can help managers improve land use practices to protect these species.
 
 # Data
 
-To adress my questions, I used data from two different sources. For salmon population data, I pulled data from the [California Monitoring Plan for salmon and steelhead](https://wildlife.ca.gov/Conservation/Fishes/Salmonid-Monitoring/CMP) (CMP), which is a joint effort between the California Department of Fish and Wildlife (CDFW) and NOAA to monitor and assemble data on anadromous salmon populations across California. For this project, I used estimates for spawning adult coho and steelhead, as this was available for many watershed level populations across a number of years. The data spans from 1981 to 2020 for steelhead and 1995 to 2020 for coho. This data was collected yearly at fixed sites for each population. In addition to the count data, I used geospatial data from the CMP which indicated the watershed or sub-watershed extent that was monitored for each population. To determine the amount of protected area within each watershed I used data from the [California Protected Areas Database](https://www.calands.org/) (CPAD) consisting of polygons of areas protected for open space use throughout California.
+To adress my questions, I used data from two different sources. For salmon population data, I pulled data from the [California Monitoring Plan for salmon and steelhead](https://wildlife.ca.gov/Conservation/Fishes/Salmonid-Monitoring/CMP) (CMP), which is a joint effort between the California Department of Fish and Wildlife (CDFW) and NOAA to monitor and assemble data on anadromous salmon populations across California. For this project, I used estimates for spawning adult coho and steelhead, as this was available for many watershed level populations across a number of years. The data spans from 1981 to 2020 for steelhead and 1995 to 2020 for coho, and was collected yearly within fixed areas for each population. In addition to the count data, I used geospatial data from the CMP which indicated the watershed or sub-watershed extent that was monitored for each population. To determine the amount of protected area within each watershed I used data from the [California Protected Areas Database](https://www.calands.org/) (CPAD), which consisted of polygons of areas protected for open space use throughout California.
 
 # Data Wrangling
 
 ## Geospatial
 
-In order to calculate percent protected by watershed, I used spatial intersection to find the overlap between the protected areas in the CPAD database and each monitored watershed. I then divided the total area of overlap by the total watershed area and multiplied by 100 to find the % protected. I removed any protected areas established after 1981, as this was the first year of data available.
+In order to calculate percent protected by watershed, I used spatial intersection to find the overlap between the protected areas in the CPAD database and each monitored watershed. I removed any protected areas established after 1981, as this was the first year of salmon data available.
 
 ```{r message=FALSE, results = FALSE}
 setwd("/Users/adelheid/Documents/MEDS/EDS_222/eds222_final_project") #setting working directory to where the data is stored
@@ -101,23 +103,28 @@ all_data <- left_join(spawning_data, watershed_geomless, by = c("GEO_ID_POLY" = 
 ```
 
 ```{r message=FALSE, `results = FALSE`}
+
 tmap_mode("view")
 
 tmap_options(check.and.fix = TRUE)
 
 watershed <- tm_shape(total_overlap) + tm_fill(col = "#004600") + #map protected portions
   tm_shape(watershed_new) + tm_borders(col = "blue") + tm_add_legend(labels = c( "Watershed Boundary", "Protected area"), col = c("blue", "#004600")) #map watershed boundaries
-protected <- tm_shape(watershed_final) + tm_polygons(col = "percent_protected", popup.vars = "Name")
+
+watershed_modified <-watershed_final |> select(Name, percent_protected)
+
+protected <- tm_shape(watershed_modified) + tm_polygons(col = "percent_protected", popup.vars = "percent_protected", title = 'Percent Protected')
 
 ```
 
 ```{r message=FALSE}
-tmap_arrange(watershed, protected)
+#| fig-cap: Figure 1. Percent of habitat protected for each California watershed monitored by the CMP for coho and/or steelhead.
+protected
 ```
 
 ## General
 
-After finding percent protected for each watershed, I added this as a column in the population count data. I selected only for adult population counts, as these were the most consistent metric of salmon population data collected. For years when adult populations were estimated using more than one method for the same population, I took the average of the estimates. I also removed populations which never had any fish observed during the time period of my analysis. For ease of interpretation, I set the first year with observations as year 0 (1981 for steelhead and 1995 for coho).
+After finding percent protected for each watershed, I added this as a column in the salmon population data. I selected only for adult population estimates, as these were the most consistent metric of salmon population data collected. For years when adult populations were estimated using more than one method for the same population, I took the average of the estimates. I also removed populations which never had any fish observed during the time period of my analysis. For ease of interpretation, I set the first year with observations as year 0 (1981 for steelhead and 1995 for coho).
 
 ```{r}
 steelhead <- all_data |> filter(Species == "Steelhead") #filter for steelhead
@@ -135,13 +142,12 @@ has_fish <- has_fish$Population
 
 steelhead_all <- steelhead_combined |>  filter(Population %in% has_fish)
 
-steelhead <- steelhead_all |>  mutate(year = as.numeric(Brood_year) - 1981, populationcount = Value)
+steelhead <- steelhead_all |>  mutate(year = as.numeric(Brood_year) - 1981, populationestimate = Value)
 
 ```
 
 ```{r}
 # coho data wrangling
-
 coho <- all_data |> filter(Species == "Coho salmon")
 
 coho_consistent <- coho |> group_by(Population) |> summarize(percent_protected = max(percent_protected)) #making value of percent protected consistent across the population
@@ -157,32 +163,34 @@ streams_zero <- coho_fish$Population
 
 coho_all <- coho_combined |> filter(Population %in% streams_zero)
 
-coho <- coho_all |>  mutate(year = as.numeric(Brood_year) - 1995, populationcount = Value)
+coho <- coho_all |>  mutate(year = as.numeric(Brood_year) - 1995, populationestimate = Value)
 ```
 
 # Analysis
 
-Initially, I ran a multiple linear regression. Population count was regressed on percent protected and year. I also included an interaction term between year and percent protected to allow the slope of the relationship between year and population estimate to vary based on percent protected.
+In total I used 810 observations of steelhead adult estimates from 69 populations between 1980 and 2020. For coho I used 579 observations of adult estimates from 51 populations between 1995 and 2020.
 
-$populationcount_i = B_0 + B_1year_i + B_2percentprotected_i + B_3Year_i * percentProtected_i+E_i$
+Initially, I ran a multiple linear regression for each species. Population estimate was regressed on percent protected and year. I also included an interaction term between year and percent protected to allow the slope of the relationship between year and population estimate to vary based on percent protected.
+
+$$populationEstimate_i = B_0 + B_1year_i + B_2percentprotected_i + B_3Year_i * percentProtected_i+E_i$$
 
 ```{r echo=TRUE, eval = FALSE}
-#stelhead regression
-lm(populationcount~percent_protected + year + year:percent_protected, data = steelhead)
+#steelhead regression
+lm(populationestimate~percent_protected + year + year:percent_protected, data = steelhead)
 #coho regression
-lm(populationcount~year + percent_protected + year:percent_protected, data = coho)
+lm(populationestimate~year + percent_protected + year:percent_protected, data = coho)
 ```
 
-This initial analysis was unable normalize between populations or control for inconsistency in data collection. More populations were measured as time increased, and some sites were monitored inconsistently or only for a few years. To control for this I used cross sectional fixed affects. Unfortunately, since percent protected did not vary based on year, it was not able to be separated from population by adding fixed affects to my initial regression equation. Instead, I used fixed effects to look at the interaction effect between year and percent protected. I also used clustered standard error to account for the fact that the same populations were likely to have correlated errors over time.
+This initial analysis was unable normalize between populations or control for inconsistency in data collection. It also resulted in residuals which were not normally distributed. To control for this I ran another regression using cross sectional fixed affects. Since percent protected did not vary based on year, it was not able to be separated from population by adding fixed affects to my initial regression equation. Instead, I used fixed effects to look at the interaction effect between year and percent protected. I also used clustered standard error to account for the fact that the same populations were likely to have correlated errors over time.
 
-$populationcount_i = B_0 + B_1year_i + B_2year_i * percentProtected_i+E_i$
+$$populationestimate_{i} = \alpha_i + B_1year_i + B_2year_i * percentProtected_i+E_i$$
 
 ```{r echo=TRUE, eval = FALSE}
 #steelhead
-felm(populationcount~year + year:percent_protected | Population|0|Population, data = steelhead)
+felm(populationestimate~year + year:percent_protected | Population|0|Population, data = steelhead)
 
 #coho
-felm(populationcount~percent_protected | year|0|year, data = coho)
+felm(populationestimate~percent_protected | year|0|year, data = coho)
 ```
 
 # Results
@@ -193,30 +201,32 @@ felm(populationcount~percent_protected | year|0|year, data = coho)
 
 Increase in percent protected has a positive effect on the number of steelhead. When year is 0 (1981) there will be on average 15 more steelhead for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.45 is the difference in the effect of year on steelhead population count for every one increase in protected area. When percent protected is zero on average there will be an increase of 35 fish per year.
 
-Using a significance level of 0.05, $B_1$ , $B_2$, and $B_3$ are statistically significant (table 1). There is evidence to reject the null.
+Using a significance level of 0.05, my coefficients on percent protected, year, and year:percent protected are statistically significant. There is evidence to reject the null.
 
 ```{r}
-model <- lm(Value~percent_protected + year + year:percent_protected, data = steelhead)
+model <- lm(populationestimate~percent_protected + year + year:percent_protected, data = steelhead)
 
 output <- tidy(model, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
 ```
 
 ```{r results = TRUE}
+#| fig-cap: "Table 1. Multiple Linear regression results for steelhead population counts"
 output %>% kable() %>% kableExtra::kable_styling()
 ```
 
-## Interaction with population cross-sectional fixed effects
+### Interaction with population cross-sectional fixed effects
 
-Controlling for differences between populations and clustering standard errors provides similar results. -0.43 is the difference in the effect of year on steelhead population count for every one increase in protected area. $B_1$ and $B_2$ are statistically significant, providing evidence to reject the null.
+Controlling for differences between populations and clustering standard errors provides similar results.  $year$ and $year:percent_protected$ are statistically significant, providing evidence to reject the null.
 
 ```{r}
 #year and percent protected interaction, population fixed effects
-fixed_pop <- felm(populationcount~year + year:percent_protected|Population|0|Population, data = steelhead)
+fixed_pop <- felm(populationestimate~year + year:percent_protected|Population|0|Population, data = steelhead)
 #tidied output
 output <- tidy(fixed_pop, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
 ```
 
 ```{r}
+#| fig-cap: "Table 2. Linear regression for steelhead population counts with fixed effects and error clustering by population."
 output %>% kable() %>% kableExtra::kable_styling()
 ```
 
@@ -224,43 +234,61 @@ output %>% kable() %>% kableExtra::kable_styling()
 
 ### Multi-regression with interaction
 
-The coho results show similar patterns to the steelhead results. However, using a significance level of 0.05, $B_1$ , $B_2$, and $B_3$ are not statistically significant (table 2) . My 95% confidence intervals include 0 and I fail to reject the null.
+The coho results show similar patterns to the steelhead results. However, using a significance level of 0.05, none of my coefficients are statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.
 
 ```{r}
-model <- lm(Value~year + percent_protected + year:percent_protected, data = coho)
+model <- lm(populationestimate~year + percent_protected + year:percent_protected, data = coho)
 output <- tidy(model, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
 ```
 
 ```{r}
+#| fig-cap: "Table 3. Multiple Linear regression results for coho population counts"
 output %>% kable() %>% kableExtra::kable_styling()
 ```
 
-## Interaction with population cross-sectional fixed effects
+### Interaction with population cross-sectional fixed effects
 
-Controlling for differences between populations and clustering standard errors provides similar results. $B_1$ and $B_2$ are not statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.
+Controlling for differences between populations and clustering standard errors provides similar results. My coefficients are not statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.
 
 ```{r}
 #population regressed on percent protected, fixed effect of year 
-fixed_pop <- felm(populationcount~year + year:percent_protected | Population|0|Population, data = coho)
+fixed_pop <- felm(populationestimate~year + year:percent_protected | Population|0|Population, data = coho)
 #tidied output
 output <- tidy(fixed_pop, conf.int = TRUE) |> mutate(estimate =round(estimate,2), std.error = round(std.error,2), statistic = round(statistic,2), p.value = round(p.value,3), conf.low = round(conf.low,2), conf.high = round(conf.high,2))
 
 ```
 
 ```{r}
+#| fig-cap: "Table 4. Linear regression for steelhead population counts with fixed effects and error clustering by population"
 output %>% kable() %>% kableExtra::kable_styling()
 ```
 
 # Discussion and Limitations
 
-My results indicate that there is a statistically significant decrease in the rate of steelhead populations over time as percent protected increases. It is unclear to me why this might be the case, however it is somewhat concerning. My assumption is that there is omitted variable bias causing this relationship. In order to investigate this it would be useful to include potential drivers of salmon populations (rainfall, stream flow, available habitat etc.). Other potential omitted variables include previously identified trends such as declines from North to South and declines as distance to reach spawning sites increases (Kope & Wainwright, 1998). Incorporating these factors could help identify any correlations between them and both percent protected and population. My results also indicate that increase in percent protected is related to an increase in number of steelhead, however this may be inaccurate as I was unable to control for other differences between populations that may have been driving this relationship.
+My results indicate that there is a statistically significant decrease in the rate of steelhead populations over time as percent protected increases. It is unclear to me why this might be the case. My assumption is that there is omitted variable bias causing this outcome. In order to investigate this it would be useful to include potential drivers of salmon populations, such as rainfall, stream flow, or available habitat. Other potential omitted variables include previously identified trends such as population declines from North to South and declines as distance to reach spawning sites increases (Kope & Wainwright, 1998). Incorporating these factors could potentially identify and account for correlations between an omitted variable and both percent protected and population. My results also indicate that increase in percent protected is related to an increased number of steelhead, however this needs to be investigated further as I was unable to control for other differences between populations that may have been driving this relationship.
 
-It is worth noting that the population change over time may not be linear in parameters. Salmon populations in the data fluctuate from year to year. There are also hatchery fish released in California to supplement populations, for both recreational and conservation purposes (Brown et al., 1994). These releases may muddle overall population trends (Kope & Wainwright, 1998).
+It is worth noting that the population change over time may not be linear in parameters over the entire time period of this dataset. Salmon populations in the data fluctuate from year to year. There are also hatchery fish released in California to supplement populations, for both recreational and conservation purposes (Brown et al., 1994). These releases may muddle overall population trends (Kope & Wainwright, 1998).
 
-To further address my question, a better method would be to look at the relationship between protected areas and the rate of overwinter survival for juvenile salmonids. This would help isolate factors specifically related to protected areas, and alleviate concern in non-linear population trends over time. It would also focus on the life-stage that is spent entirely in freshwater habitat, and thereby most likely affected by inland protected areas. Unfortunately, overwinter survival data does not appear to be collected consistently across watersheds in California, which would make further data collection necessary for this analysis.
+To further address my question, a better method would be to look at the relationship between protected areas and the rate of overwinter survival for juvenile salmonids. This would help isolate factors specifically related to protected areas, and mitigate for the concern of non-linear population trends over time. It would also focus on the juvenile life-stage, which is spent entirely in freshwater habitat, and thereby most likely affected by inland protected areas. Unfortunately, overwinter survival data does not appear to be collected consistently across watersheds in California, which would make further data collection necessary for this analysis.
 
-In terms of protected area data, my data had an extensive (roughly 30%) number of NAs in the year established column, making it unclear whether all of the protected areas I used existed during the whole study period. CPAD also uses a loose definition of protected and includes any lands that were maintained for open space purposes. It could be better to address this question using only protected areas which are specifically managed for biodiversity purposes. This type of data is available through [USGS](https://www.usgs.gov/programs/gap-analysis-project/science/protected-areas), however I opted not to use this data due to even more extensive NAs in the year established column.
+In terms of protected area data, my data had an extensive (roughly 30%) number of NAs in the year established column, making it unclear whether all of the protected areas I used existed during the whole study period. CPAD also uses a loose definition of protected and includes any lands that are maintained for open space purposes. It could be better to address my question using only protected areas which are specifically managed for biodiversity purposes. This type of data is available through [USGS](https://www.usgs.gov/programs/gap-analysis-project/science/protected-areas), however I opted against switching to this data set due to even more extensive NAs in the year established column.
 
-More research is necessary in order to truly understand whether or not protected areas influence California salmon populations. Due to limitations in my study, I do not feel confident making any assumptions at this point.
+More research is necessary in order to truly understand whether or not protected areas influence California salmonid populations. Due to limitations in my study, I do not feel confident making any assumptions at this point.
 
-# Citations
+# Works Cited
+
+Bilby, R. E., & Mollot, L. A. (2008). Effect of changing land use patterns on the distribution of coho salmon (Oncorhynchus kisutch) in the Puget Sound region. *Canadian Journal of Fisheries and Aquatic Sciences*, *65*(10), 2138--2148. <https://doi.org/10.1139/F08-113>
+
+Brown, L. R., Moyle, P. B., & Yoshiyama, R. M. (1994). Historical Decline and Current Status of Coho Salmon in California. *North American Journal of Fisheries Management*, *14*(2), 237--261. [https://doi.org/10.1577/1548-8675(1994)014\<0237:HDACSO\>2.3.CO;2](https://doi.org/10.1577/1548-8675(1994)014<0237:HDACSO>2.3.CO;2)
+
+Katz, J., Moyle, P. B., Quiñones, R. M., Israel, J., & Purdy, S. (2013). Impending extinction of salmon, steelhead, and trout (Salmonidae) in California. *Environmental Biology of Fishes*, *96*(10), 1169--1186. <https://doi.org/10.1007/s10641-012-9974-8>
+
+Kope, R., & Wainwright, T. (1998). Trends in the status of Pacific salmon populations in Washington, Oregon, California, and Idaho. *North Pacific Anadromous Fish Commission Bulletin*, *1*, 1--12.
+
+Moyle, P. B., Lusardi, R. A., Samuel, P. J., & Katz, J. V. (2017). *State of the Salmonids: Status of California\'s Emblematic Fishes*. 579.
+
+Paulsen, C. M., & Fisher, T. R. (2001). Statistical Relationship between Parr-to-Smolt Survival of Snake River Spring--Summer Chinook Salmon and Indices of Land Use. *Transactions of the American Fisheries Society*, *130*(3), 347--358. [https://doi.org/10.1577/1548-8659(2001)130\<0347:SRBPTS\>2.0.CO;2](https://doi.org/10.1577/1548-8659(2001)130<0347:SRBPTS>2.0.CO;2)
+
+# Code
+
+Full code for this post and analysis can be found within my website github repository [here](https://github.com/adelaiderobinson/adelaiderobinson.github.io/tree/main/posts/2022-11-25-Statistics_Final_Project).
