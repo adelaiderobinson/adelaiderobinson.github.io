@@ -27,7 +27,7 @@ library(tmap)
 library(broom)
 library(kableExtra)
 library(knitr)
-library(lfe)
+library(lfe) 
 ```
 
 # Background
