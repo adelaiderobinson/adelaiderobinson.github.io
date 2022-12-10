@@ -209,7 +209,7 @@ output <- tidy(model, conf.int = TRUE) |> mutate(estimate =round(estimate,2), st
 
 ```{r results = TRUE}
 #| fig-cap: "Table 1. Multiple Linear regression results for steelhead population counts"
-output %>% kable() %>% kableExtra::kable_styling()
+output %>% kable() %>% kableExtra::kable_styling() 
 ```
 
 ### Interaction with population cross-sectional fixed effects
