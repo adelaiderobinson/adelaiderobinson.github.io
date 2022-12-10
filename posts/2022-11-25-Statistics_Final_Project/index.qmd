@@ -214,7 +214,7 @@ output %>% kable() %>% kableExtra::kable_styling()
 
 ### Interaction with population cross-sectional fixed effects
 
-Controlling for differences between populations and clustering standard errors provides similar results. $year$ and $year:percent_protected$ are statistically significant, providing evidence to reject the null.
+Controlling for differences between populations and clustering standard errors provides similar results. $year$ and $year:percentProtected$ are statistically significant, providing evidence to reject the null.
 
 ```{r}
 #year and percent protected interaction, population fixed effects
