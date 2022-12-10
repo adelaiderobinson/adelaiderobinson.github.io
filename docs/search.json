@@ -28,6 +28,34 @@
     "text": "Coho\n\nMulti-regression with interaction\nThe coho results show similar patterns to the steelhead results. However, using a significance level of 0.05, \\(B_1\\) , \\(B_2\\), and \\(B_3\\) are not statistically significant (table 2) . My 95% confidence intervals include 0 and I fail to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\n(Intercept)\n\n\n203.32\n\n\n225.88\n\n\n0.90\n\n\n0.368\n\n\n-240.33\n\n\n646.97\n\n\n\n\nyear\n\n\n17.56\n\n\n12.21\n\n\n1.44\n\n\n0.151\n\n\n-6.42\n\n\n41.53\n\n\n\n\npercent_protected\n\n\n2.04\n\n\n3.27\n\n\n0.62\n\n\n0.533\n\n\n-4.38\n\n\n8.46\n\n\n\n\nyear:percent_protected\n\n\n-0.29\n\n\n0.18\n\n\n-1.55\n\n\n0.122\n\n\n-0.65\n\n\n0.08\n\n\n\n\n\nTable 3. Multiple Linear regression results for coho population counts\n\n\n\n\nInteraction with population cross-sectional fixed effects\nControlling for differences between populations and clustering standard errors provides similar results. \\(B_1\\) and \\(B_2\\) are not statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\nyear\n\n\n24.55\n\n\n18.16\n\n\n1.35\n\n\n0.183\n\n\n-11.94\n\n\n61.03\n\n\n\n\nyear:percent_protected\n\n\n-0.37\n\n\n0.23\n\n\n-1.59\n\n\n0.117\n\n\n-0.83\n\n\n0.10\n\n\n\n\n\nTable 4. Linear regression for steelhead population counts with fixed effects and error clustering by population"
   },
   {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#geospatial",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#geospatial",
+    "title": "Exploring the Relationship Between Salmonid Populations and Protected Areas",
+    "section": "Geospatial",
+    "text": "Geospatial\nIn order to calculate percent protected by watershed, I used spatial intersection to find the overlap between the protected areas in the CPAD database and each monitored watershed. I removed any protected areas established after 1981, as this was the first year of salmon data available.\n\n\n\n\n\n\n\n\n\n\n\nFigure 1. Percent of habitat protected for each California watershed monitored by the CMP for coho and/or steelhead."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#general",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#general",
+    "title": "Exploring the Relationship Between Salmonid Populations and Protected Areas",
+    "section": "General",
+    "text": "General\nAfter finding percent protected for each watershed, I added this as a column in the salmon population data. I selected only for adult population estimates, as these were the most consistent metric of salmon population data collected. For years when adult populations were estimated using more than one method for the same population, I took the average of the estimates. I also removed populations which never had any fish observed during the time period of my analysis. For ease of interpretation, I set the first year with observations as year 0 (1981 for steelhead and 1995 for coho)."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#steelhead",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#steelhead",
+    "title": "Exploring the Relationship Between Salmonid Populations and Protected Areas",
+    "section": "Steelhead",
+    "text": "Steelhead\n\nMultiregression with interaction\nIncrease in percent protected has a positive effect on the number of steelhead. When year is 0 (1981) there will be on average 15 more steelhead for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.45 is the difference in the effect of year on steelhead population count for every one increase in protected area. When percent protected is zero on average there will be an increase of 35 fish per year.\nUsing a significance level of 0.05, my coefficients on percent protected, year, and year:percent protected are statistically significant. There is evidence to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\n(Intercept)\n\n\n-724.84\n\n\n412.23\n\n\n-1.76\n\n\n0.079\n\n\n-1534.01\n\n\n84.33\n\n\n\n\npercent_protected\n\n\n14.52\n\n\n6.37\n\n\n2.28\n\n\n0.023\n\n\n2.01\n\n\n27.03\n\n\n\n\nyear\n\n\n35.26\n\n\n12.75\n\n\n2.77\n\n\n0.006\n\n\n10.24\n\n\n60.28\n\n\n\n\npercent_protected:year\n\n\n-0.45\n\n\n0.20\n\n\n-2.27\n\n\n0.024\n\n\n-0.85\n\n\n-0.06\n\n\n\n\n\nTable 1. Multiple Linear regression results for steelhead population counts\n\n\n\n\nInteraction with population cross-sectional fixed effects\nControlling for differences between populations and clustering standard errors provides similar results. \\(year\\) and \\(year:percent_protected\\) are statistically significant, providing evidence to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\nyear\n\n\n24.75\n\n\n9.91\n\n\n2.5\n\n\n0.015\n\n\n4.98\n\n\n44.52\n\n\n\n\nyear:percent_protected\n\n\n-0.43\n\n\n0.16\n\n\n-2.6\n\n\n0.011\n\n\n-0.76\n\n\n-0.10\n\n\n\n\n\nTable 2. Linear regression for steelhead population counts with fixed effects and error clustering by population."
+  },
+  {
+    "objectID": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#coho",
+    "href": "posts/2022-11-25-Statistics_Final_Project/index.knit.html#coho",
+    "title": "Exploring the Relationship Between Salmonid Populations and Protected Areas",
+    "section": "Coho",
+    "text": "Coho\n\nMulti-regression with interaction\nThe coho results show similar patterns to the steelhead results. However, using a significance level of 0.05, none of my coefficients are statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\n(Intercept)\n\n\n203.32\n\n\n225.88\n\n\n0.90\n\n\n0.368\n\n\n-240.33\n\n\n646.97\n\n\n\n\nyear\n\n\n17.56\n\n\n12.21\n\n\n1.44\n\n\n0.151\n\n\n-6.42\n\n\n41.53\n\n\n\n\npercent_protected\n\n\n2.04\n\n\n3.27\n\n\n0.62\n\n\n0.533\n\n\n-4.38\n\n\n8.46\n\n\n\n\nyear:percent_protected\n\n\n-0.29\n\n\n0.18\n\n\n-1.55\n\n\n0.122\n\n\n-0.65\n\n\n0.08\n\n\n\n\n\nTable 3. Multiple Linear regression results for coho population counts\n\n\n\n\nInteraction with population cross-sectional fixed effects\nControlling for differences between populations and clustering standard errors provides similar results. My coefficients are not statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.\n\n\n\n\n\n\n\n\n\n\nterm\n\n\nestimate\n\n\nstd.error\n\n\nstatistic\n\n\np.value\n\n\nconf.low\n\n\nconf.high\n\n\n\n\n\n\nyear\n\n\n24.55\n\n\n18.16\n\n\n1.35\n\n\n0.183\n\n\n-11.94\n\n\n61.03\n\n\n\n\nyear:percent_protected\n\n\n-0.37\n\n\n0.23\n\n\n-1.59\n\n\n0.117\n\n\n-0.83\n\n\n0.10\n\n\n\n\n\nTable 4. Linear regression for steelhead population counts with fixed effects and error clustering by population"
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Adelaide Robinson",
@@ -46,7 +74,7 @@
     "href": "posts.html",
     "title": "Data Science Blog",
     "section": "",
-    "text": "MEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "MEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nMEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "hello.html",

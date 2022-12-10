@@ -16,8 +16,6 @@ draft:
 format: 
   html:
     code-fold: true
-    fig-width: 4
-    fig-height: 3
 image: steelhead.jpg
 ---
 
@@ -216,7 +214,7 @@ output %>% kable() %>% kableExtra::kable_styling()
 
 ### Interaction with population cross-sectional fixed effects
 
-Controlling for differences between populations and clustering standard errors provides similar results.  $year$ and $year:percent_protected$ are statistically significant, providing evidence to reject the null.
+Controlling for differences between populations and clustering standard errors provides similar results. $year$ and $year:percent_protected$ are statistically significant, providing evidence to reject the null.
 
 ```{r}
 #year and percent protected interaction, population fixed effects
@@ -279,15 +277,15 @@ More research is necessary in order to truly understand whether or not protected
 
 Bilby, R. E., & Mollot, L. A. (2008). Effect of changing land use patterns on the distribution of coho salmon (Oncorhynchus kisutch) in the Puget Sound region. *Canadian Journal of Fisheries and Aquatic Sciences*, *65*(10), 2138--2148. <https://doi.org/10.1139/F08-113>
 
-Brown, L. R., Moyle, P. B., & Yoshiyama, R. M. (1994). Historical Decline and Current Status of Coho Salmon in California. *North American Journal of Fisheries Management*, *14*(2), 237--261. [https://doi.org/10.1577/1548-8675(1994)014\<0237:HDACSO\>2.3.CO;2](https://doi.org/10.1577/1548-8675(1994)014<0237:HDACSO>2.3.CO;2)
+Brown, L. R., Moyle, P. B., & Yoshiyama, R. M. (1994). Historical Decline and Current Status of Coho Salmon in California. *North American Journal of Fisheries Management*, *14*(2), 237--261. <https://doi.org/10.1577/1548-8675(1994)014%3C0237:HDACSO%3E2.3.CO;2>
 
 Katz, J., Moyle, P. B., Quiñones, R. M., Israel, J., & Purdy, S. (2013). Impending extinction of salmon, steelhead, and trout (Salmonidae) in California. *Environmental Biology of Fishes*, *96*(10), 1169--1186. <https://doi.org/10.1007/s10641-012-9974-8>
 
 Kope, R., & Wainwright, T. (1998). Trends in the status of Pacific salmon populations in Washington, Oregon, California, and Idaho. *North Pacific Anadromous Fish Commission Bulletin*, *1*, 1--12.
 
-Moyle, P. B., Lusardi, R. A., Samuel, P. J., & Katz, J. V. (2017). *State of the Salmonids: Status of California\'s Emblematic Fishes*. 579.
+Moyle, P. B., Lusardi, R. A., Samuel, P. J., & Katz, J. V. (2017). *State of the Salmonids: Status of California's Emblematic Fishes*. 579.
 
-Paulsen, C. M., & Fisher, T. R. (2001). Statistical Relationship between Parr-to-Smolt Survival of Snake River Spring--Summer Chinook Salmon and Indices of Land Use. *Transactions of the American Fisheries Society*, *130*(3), 347--358. [https://doi.org/10.1577/1548-8659(2001)130\<0347:SRBPTS\>2.0.CO;2](https://doi.org/10.1577/1548-8659(2001)130<0347:SRBPTS>2.0.CO;2)
+Paulsen, C. M., & Fisher, T. R. (2001). Statistical Relationship between Parr-to-Smolt Survival of Snake River Spring--Summer Chinook Salmon and Indices of Land Use. *Transactions of the American Fisheries Society*, *130*(3), 347--358. <https://doi.org/10.1577/1548-8659(2001)130%3C0347:SRBPTS%3E2.0.CO;2>
 
 # Code
 
