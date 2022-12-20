@@ -188,14 +188,14 @@ $$populationestimate_{i} = \alpha_i + B_1year_i + B_2year_i * percentProtected_i
 felm(populationestimate~year + year:percent_protected | Population|0|Population, data = steelhead)
 
 #coho
-felm(populationestimate~percent_protected | year|0|year, data = coho)
+felm(populationestimate~year + year:percent_protected | Population|0|Population, data = coho)
 ```
 
 # Results
 
 ## Steelhead
 
-### Multiregression with interaction
+### Multiple regression with interaction
 
 Increase in percent protected has a positive effect on the number of steelhead. When year is 0 (1981) there will be on average 15 more steelhead for each one percentage increase in percent protected. Increase in percent protected decreases the slope of the relationship between year and population count. -0.45 is the difference in the effect of year on steelhead population count for every one increase in protected area. When percent protected is zero on average there will be an increase of 35 fish per year.
 
@@ -214,7 +214,7 @@ output %>% kable() %>% kableExtra::kable_styling()
 
 ### Interaction with population cross-sectional fixed effects
 
-Controlling for differences between populations and clustering standard errors provides similar results. $year$ and $year:percentProtected$ are statistically significant, providing evidence to reject the null.
+Controlling for differences between populations and clustering standard errors provides similar results. year and year:percent_protected are statistically significant, providing evidence to reject the null.
 
 ```{r}
 #year and percent protected interaction, population fixed effects
@@ -230,7 +230,7 @@ output %>% kable() %>% kableExtra::kable_styling()
 
 ## Coho
 
-### Multi-regression with interaction
+### Multiple regression with interaction
 
 The coho results show similar patterns to the steelhead results. However, using a significance level of 0.05, none of my coefficients are statistically significant. My 95% confidence intervals include 0 and I fail to reject the null.
 
@@ -257,7 +257,7 @@ output <- tidy(fixed_pop, conf.int = TRUE) |> mutate(estimate =round(estimate,2)
 ```
 
 ```{r}
-#| fig-cap: "Table 4. Linear regression for steelhead population counts with fixed effects and error clustering by population"
+#| fig-cap: "Table 4. Linear regression for coho population counts with fixed effects and error clustering by population"
 output %>% kable() %>% kableExtra::kable_styling()
 ```
 
