@@ -46,13 +46,34 @@
     "href": "posts.html",
     "title": "Data Science Blog",
     "section": "",
-    "text": "MEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Exploring the Relationship Between Salmonid Populations and Protected Areas\n\n\n\nMEDS\n\n\n\nEDS 222 Final Project\n\n\n\nAdelaide Robinson\n\n\nDec 9, 2022\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "hello.html",
     "href": "hello.html",
     "title": "CV",
     "section": "",
-    "text": "Coming Soon!"
+    "text": "Master of Environmental Data Science (Expected June 2022)\nBren School of Environmental Science & Management – University of California, Santa Barbara (UCSB)\nBachelor of Science in Animal Biology (June 2015)\nUniversity of California, Davis (UCD)"
+  },
+  {
+    "objectID": "hello.html#skills",
+    "href": "hello.html#skills",
+    "title": "CV",
+    "section": "Skills",
+    "text": "Skills\nLanguages: R, SQL, Python\nTools: Access, Excel, R Studio, Microsoft SQL Server, Git"
+  },
+  {
+    "objectID": "hello.html#biological-monitoring-and-data-management-experience",
+    "href": "hello.html#biological-monitoring-and-data-management-experience",
+    "title": "CV",
+    "section": "Biological Monitoring and Data Management Experience",
+    "text": "Biological Monitoring and Data Management Experience\n\nEnvironmental Markets Lab\nFisheries Researcher (12/22- Present)\n\nConducted a cost revenue analysis on the Seychelles fisheries to help improve fisheries management\nConducted literature and data review\nAssisted with data wrangling and calculation of cost and revenue using R\n\n\n\nUS Fish and Wildlife Service\nFisheries Technician (08/21–5/22)\n\nUtilized trawling and seining techniques to conduct sampling for juvenile fish species,including federally listed delta smelt and Chinook salmon\nCo-authored annual monitoring report, including utilizing an R script to pull data from Access database and summarize findings\n\n\n\nWashington Department of Fish and Wildlife\nFisheries Technician (03/21–07/21)\n\nOperated and maintained a rotary screw trap to capture and collect data on over 70,000 out-migrating juvenile salmon\nCreated weekly catch summaries and quality-controlled data using queries within Microsoft Access database\nHandled, identified, and tagged juvenile salmonid species\n\n\n\nPoint Reyes National Seashore Association\nFisheries Lead Technician (02/20-01/21)\n\nLed Dual Frequency Identification (DIDSON) sonar camera project, including footage review,data management and analysis for over 3,000 hours of sonar footage\nWrote annual monitoring reports for the National Park Service’s Inventory and Monitoring Program\nMonitored federally listed coho salmon and steelhead trout using techniques including snorkeling, redd and carcass surveys, seine netting, and Passive Integrated Transponder (PIT) tagging\nUtilized Microsoft Access to import, QAQC and query field data\n\n\n\nConservation Corps North Bay\nEcology Intern Crew Lead (05/19 - 09/19)\n\nManaged field logistics, including coordinating and reporting daily activities with project partners\nConducted ecological surveys, including creek cross section surveys, rapid assessment forest surveys, Olympia oyster surveys and erosion surveys\nWrote summary reports for grant funders\n\n\n\nWatershed Stewards Program\nProgram Member: Point Reyes National Seashore (10/17 - 08/18)\n\nMonitored federally listed coho salmon and steelhead trout populations throughout three Watersheds using spawner and snorkel surveys methods\nCaptured juvenile salmonid species through fyke-net trapping, electrofishing, and seine netting\n\nProgram Member: San Joaquin River Parkway (10/16-08/17)\n\nConducted research on Chinook salmon, including spawner surveys and adult relocation\nTaught local students a 6-week environmental education program\nRestored riparian habitat through invasive species removal and native planting"
+  },
+  {
+    "objectID": "hello.html#additional-work-experience-and-coursework",
+    "href": "hello.html#additional-work-experience-and-coursework",
+    "title": "CV",
+    "section": "Additional Work Experience and Coursework",
+    "text": "Additional Work Experience and Coursework\nUniversity of California, San Diego Extension Intro SQL Programming Concepts\nExperimental Biology Aide- Oregon Department of Fish and Wildlife, Roseburg, OR (10/19-01/20)\nCorpsmember – California Conservation Corps, Watsonville, CA (12/15–10/16)"
   }
 ]

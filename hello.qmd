@@ -2,4 +2,84 @@
 title: "CV"
 ---
 
-Coming Soon!
+## Education
+
+**Master of Environmental Data Science** (Expected June 2022)
+
+Bren School of Environmental Science & Management -- University of California, Santa Barbara (UCSB)
+
+**Bachelor of Science in Animal Biology** (June 2015)
+
+University of California, Davis (UCD)
+
+## Skills
+
+**Languages:** R, SQL, Python
+
+**Tools:** Access, Excel, R Studio, Microsoft SQL Server, Git
+
+## **Biological Monitoring and Data Management Experience**
+
+### Environmental Markets Lab
+
+**Fisheries Researcher** (12/22- Present)
+
+-   Conducted a cost revenue analysis on the Seychelles fisheries to help improve fisheries management
+
+-   Conducted literature and data review
+
+-   Assisted with data wrangling and calculation of cost and revenue using R
+
+### US Fish and Wildlife Service
+
+**Fisheries Technician** (08/21--5/22)
+
+-   Utilized trawling and seining techniques to conduct sampling for juvenile fish species,including federally listed delta smelt and Chinook salmon
+
+-   Co-authored annual monitoring report, including utilizing an R script to pull data from Access database and summarize findings
+
+### Washington Department of Fish and Wildlife
+
+**Fisheries Technician** (03/21--07/21)
+
+-   Operated and maintained a rotary screw trap to capture and collect data on over 70,000 out-migrating juvenile salmon
+-   Created weekly catch summaries and quality-controlled data using queries within Microsoft Access database
+-   Handled, identified, and tagged juvenile salmonid species
+
+### Point Reyes National Seashore Association
+
+**Fisheries Lead Technician** (02/20-01/21)
+
+-   Led Dual Frequency Identification (DIDSON) sonar camera project, including footage review,data management and analysis for over 3,000 hours of sonar footage
+-   Wrote annual monitoring reports for the National Park Service's Inventory and Monitoring Program
+-   Monitored federally listed coho salmon and steelhead trout using techniques including snorkeling, redd and carcass surveys, seine netting, and Passive Integrated Transponder (PIT) tagging
+-   Utilized Microsoft Access to import, QAQC and query field data
+
+### Conservation Corps North Bay
+
+**Ecology Intern Crew Lead** (05/19 - 09/19)
+
+-   Managed field logistics, including coordinating and reporting daily activities with project partners
+-   Conducted ecological surveys, including creek cross section surveys, rapid assessment forest surveys, Olympia oyster surveys and erosion surveys
+-   Wrote summary reports for grant funders
+
+### Watershed Stewards Program
+
+**Program Member: Point Reyes National Seashore** (10/17 - 08/18)
+
+-   Monitored federally listed coho salmon and steelhead trout populations throughout three Watersheds using spawner and snorkel surveys methods
+-   Captured juvenile salmonid species through fyke-net trapping, electrofishing, and seine netting
+
+**Program Member: San Joaquin River Parkway** (10/16-08/17)
+
+-   Conducted research on Chinook salmon, including spawner surveys and adult relocation
+-   Taught local students a 6-week environmental education program
+-   Restored riparian habitat through invasive species removal and native planting
+
+## Additional Work Experience and Coursework
+
+**University of California, San Diego Extension** Intro SQL Programming Concepts
+
+**Experimental Biology Aide- Oregon Department of Fish and Wildlife**, Roseburg, OR (10/19-01/20)
+
+**Corpsmember** -- **California Conservation Corps**, Watsonville, CA (12/15--10/16)
