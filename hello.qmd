@@ -16,7 +16,7 @@ University of California, Davis (UCD)
 
 **Languages:** R, SQL, Python
 
-**Tools:** Access, Excel, R Studio, Microsoft SQL Server, Git
+**Tools:** Access, Excel, R Studio, Microsoft SQL Server, Git, Github
 
 ## **Biological Monitoring and Data Management Experience**
 
