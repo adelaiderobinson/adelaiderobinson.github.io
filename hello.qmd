@@ -4,7 +4,7 @@ title: "CV"
 
 ## Education
 
-**Master of Environmental Data Science** (Expected June 2022)
+**Master of Environmental Data Science** (June 2023)
 
 Bren School of Environmental Science & Management -- University of California, Santa Barbara (UCSB)
 
@@ -20,9 +20,21 @@ University of California, Davis (UCD)
 
 ## **Biological Monitoring and Data Management Experience**
 
+### National Center for Ecological Analysis and Synthesis
+
+**Ocean Health Index Fellow** (05/23- Present)
+
+-   Synthesized environmental data to analyze global ocean health for 10 indicator goals
+
+-   Worked collaboratively using R and GitHub
+
+-   Utilized geospatial data to analyze regional trends in ocean health
+
+-   Updated the Ocean Health Index website to improve project communications
+
 ### Environmental Markets Lab
 
-**Fisheries Researcher** (12/22- Present)
+**Fisheries Researcher** (12/22- 05/23)
 
 -   Conducted a cost revenue analysis on the Seychelles fisheries to help improve fisheries management
 
