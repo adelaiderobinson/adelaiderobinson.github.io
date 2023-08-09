@@ -13,7 +13,7 @@ about:
       href: mailto:adelaide.robinson445@gmail.com
 ---
 
-Hi I'm Adelaide! I'm currently an [Ocean Health Index](https://www.oceanhealthindex.org/) fellow at the [National Center for Ecological Analysis and Synthesis](https://www.nceas.ucsb.edu/). I'm also a recent graduate of the Master of Environmental Data Science (MEDS) Program at UC Santa Barbara within the Bren School of Environmental Science & Management.
+Hi I'm Adelaide! I'm currently an [Ocean Health Index](https://www.oceanhealthindex.org/) fellow at the [National Center for Ecological Analysis and Synthesis](https://www.nceas.ucsb.edu/). I'm recently graduated from the Master of Environmental Data Science (MEDS) Program at UC Santa Barbara within the Bren School of Environmental Science & Management.
 
 ## Background
 
